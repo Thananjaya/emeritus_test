@@ -6,10 +6,6 @@ class User < ApplicationRecord
 
   before_update :validate_user_kind
 
-  def favorite_teachers
-    enrollments.where(favorite: true)
-  end
-
   def self.classmates(user)
     User.joins(:enrollments).where.not(enrollments: {user_id: user.id}).where(enrollments: {program_id: user.enrollments.pluck(:program_id)})
   end
